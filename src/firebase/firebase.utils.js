@@ -2,15 +2,15 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-const config = {
-  apiKey: 'AIzaSyDkljepRmG1pWai_HNVXCgL7P-jwJEh0gg',
-  authDomain: 'crwn-db-89671.firebaseapp.com',
-  databaseURL: 'https://crwn-db-89671.firebaseio.com',
-  projectId: 'crwn-db-89671',
-  storageBucket: 'crwn-db-89671.appspot.com',
-  messagingSenderId: '52543838098',
-  appId: '1:52543838098:web:4c97921729c02a70ddd34b',
-  measurementId: 'G-5TZQLPHSBT',
+var config = {
+  apiKey: 'AIzaSyCeBkUhtePMj1k8MIGtkNu4GsNjKFlwI74',
+  authDomain: 'clothing-app-db-76610.firebaseapp.com',
+  databaseURL: 'https://clothing-app-db-76610.firebaseio.com',
+  projectId: 'clothing-app-db-76610',
+  storageBucket: 'clothing-app-db-76610.appspot.com',
+  messagingSenderId: '709296066865',
+  appId: '1:709296066865:web:290f7fef432ea6e4a52010',
+  measurementId: 'G-K5K4MJ4JLK',
 };
 
 firebase.initializeApp(config);
@@ -38,6 +38,22 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+// add shop data into firebase
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
 };
 
 export const auth = firebase.auth();
